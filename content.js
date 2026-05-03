@@ -34,7 +34,8 @@
   const ASSISTANT_SELECTORS = [
     '[data-message-author-role="assistant"]',         // demo page + chatgpt fallback
     '[data-testid="assistant-message"]',              // possible Anthropic test attr
-    '.font-claude-message',                           // claude.ai stable class
+    '.font-claude-response',                          // claude.ai response wrapper (current)
+    '.font-claude-message',                           // claude.ai stable class (legacy)
     '[class*="font-claude-message"]',                 // partial class match
     'div[class*="claude-message"]',                   // looser
     '[data-test-render-count]',                       // claude.ai render-tracking attr
