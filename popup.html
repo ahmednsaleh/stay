@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Stay</title>
+  <style>
+    :root {
+      --fg: #1f1f1f;
+      --fg-soft: #565656;
+      --bg: #ffffff;
+      --border: rgba(0,0,0,.08);
+      --accent: #0e7c5b;
+      --sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --fg:#ececec; --fg-soft:#a1a1a1; --bg:#1f2024; --border:rgba(255,255,255,.10); }
+    }
+    * { box-sizing: border-box; }
+    body {
+      width: 320px;
+      margin: 0;
+      padding: 16px;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      font-size: 13px;
+    }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .sub {
+      color: var(--fg-soft);
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+    .stat-row {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .stat {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .stat-num {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+    }
+    .stat-num.accent { color: var(--accent); }
+    .stat-lbl {
+      font-size: 11px;
+      color: var(--fg-soft);
+      margin-top: 2px;
+    }
+    .recent-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--fg-soft);
+      margin: 14px 0 8px;
+    }
+    .recent {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .pred {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .pred-text {
+      color: var(--fg);
+      margin-bottom: 4px;
+      max-height: 3.6em;
+      overflow: hidden;
+    }
+    .pred-text.empty { color: var(--fg-soft); font-style: italic; }
+    .pred-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--fg-soft);
+    }
+    .cal-tag {
+      padding: 1px 6px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+    .cal-knew_it { color: #6b6b6b; }
+    .cal-partial { color: #b67200; }
+    .cal-surprised { color: var(--accent); border-color: rgba(14,124,91,.35); }
+    .empty-state {
+      color: var(--fg-soft);
+      font-size: 12px;
+      padding: 20px 4px;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--fg-soft);
+    }
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 32px;
+      height: 18px;
+    }
+    .toggle input { display: none; }
+    .toggle .slider {
+      position: absolute;
+      inset: 0;
+      background: #ccc;
+      border-radius: 999px;
+      transition: 160ms ease;
+    }
+    .toggle .slider::before {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      left: 2px;
+      top: 2px;
+      background: #fff;
+      border-radius: 50%;
+      transition: 160ms ease;
+    }
+    .toggle input:checked + .slider { background: var(--accent); }
+    .toggle input:checked + .slider::before { transform: translateX(14px); }
+  </style>
+</head>
+<body>
+  <h1>Stay</h1>
+  <div class="sub">Predict before you read. Notice when you're surprised.</div>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="stat-num" id="count">0</div>
+      <div class="stat-lbl">predictions · 7d</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num accent" id="surprised">0%</div>
+      <div class="stat-lbl">surprised — growth signal</div>
+    </div>
+  </div>
+
+  <div class="recent-title">Recent predictions</div>
+  <div class="recent" id="recent"></div>
+
+  <div class="toggle-row">
+    <span>Stay enabled on ChatGPT</span>
+    <label class="toggle">
+      <input type="checkbox" id="enabled" checked />
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
